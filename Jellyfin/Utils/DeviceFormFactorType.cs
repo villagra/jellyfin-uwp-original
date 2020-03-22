@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace jellyfin_uwp
+namespace Jellyfin.Utils
 {
     public enum DeviceFormFactorType
     {

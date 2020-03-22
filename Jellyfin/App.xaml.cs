@@ -1,12 +1,23 @@
-﻿using System;
+﻿using Jellyfin.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace jellyfin_uwp
+namespace Jellyfin
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -20,8 +31,6 @@ namespace jellyfin_uwp
         public App()
         {
             this.InitializeComponent();
-            
-            this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
             this.Suspending += OnSuspending;
         }
 
@@ -40,14 +49,13 @@ namespace jellyfin_uwp
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (AppUtils.IsXbox)
-                {                    
+                {
                     ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
                     ApplicationViewScaling.TrySetDisableLayoutScaling(true);
                 }
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

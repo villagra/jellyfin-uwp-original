@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace jellyfin_uwp.Controls
+namespace Jellyfin.Controls
 {
     public sealed partial class JellyfinWebView : UserControl
     {
@@ -27,7 +27,7 @@ namespace jellyfin_uwp.Controls
             WView.ContainsFullScreenElementChanged += JellyfinWebView_ContainsFullScreenElementChanged;
             WView.NavigationCompleted += JellyfinWebView_NavigationCompleted;
 
-            WView.Navigate(new Uri(SettingsStore.AppURL));
+            WView.Navigate(new Uri("https://demo.jellyfin.org/stable"));
         }
 
         private async void JellyfinWebView_NavigationCompleted(Windows.UI.Xaml.Controls.WebView sender, WebViewNavigationCompletedEventArgs args)

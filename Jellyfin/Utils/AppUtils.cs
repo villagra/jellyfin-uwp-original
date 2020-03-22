@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.System.Profile;
 
-namespace jellyfin_uwp
+namespace Jellyfin.Utils
 {
     public class AppUtils
     {

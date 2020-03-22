@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="53468VillagraLabs.jellyfin-test"
-    Publisher="CN=5A691C3E-3A46-4595-98F1-B3A730766E47"
-    Version="0.1.2.0" />
+    Name="c12312dc-c01c-4e3c-8302-b89b3ed5c8d3"
+    Publisher="CN=jmvil"
+    Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="a95992c0-7326-44a2-bc9d-fc68ff1591c3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="c12312dc-c01c-4e3c-8302-b89b3ed5c8d3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>jellyfin-test</DisplayName>
-    <PublisherDisplayName>Villagra Labs</PublisherDisplayName>
+    <DisplayName>Jellyfin</DisplayName>
+    <PublisherDisplayName>jmvil</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -30,15 +30,15 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="jellyfin_uwp.App">
+      EntryPoint="Jellyfin.App">
       <uap:VisualElements
-        DisplayName="jellyfin-test"
+        DisplayName="Jellyfin"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Jellyfin app"
-        BackgroundColor="#ffffff">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#101010"/>
+        Description="Jellyfin"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
