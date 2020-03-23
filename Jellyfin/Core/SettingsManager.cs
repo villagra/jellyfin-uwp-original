@@ -25,6 +25,8 @@ namespace Jellyfin.Core
             }
         }
 
+        public bool HasJellyfinServer => !String.IsNullOrEmpty(JellyfinServer);
+
         public String JellyfinServer
         {
             get => GetProperty<String>(SETTING_SERVER);

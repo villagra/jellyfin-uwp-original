@@ -1,12 +1,14 @@
 ﻿using Jellyfin.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,9 +30,21 @@ namespace Jellyfin.Controls
 
             WView.ContainsFullScreenElementChanged += JellyfinWebView_ContainsFullScreenElementChanged;
             WView.NavigationCompleted += JellyfinWebView_NavigationCompleted;
-            WView.Navigate(new Uri(Central.Settings.JellyfinServer));
+            WView.NavigationFailed += WView_NavigationFailed;
 
             SystemNavigationManager.GetForCurrentView().BackRequested += Back_BackRequested;
+            this.Loaded += JellyfinWebView_Loaded;            
+        }
+
+        private async void WView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            MessageDialog md = new MessageDialog("Navigation failed");
+            await md.ShowAsync();
+        }
+
+        private void JellyfinWebView_Loaded(object sender, RoutedEventArgs e)
+        {
+            WView.Navigate(new Uri(Central.Settings.JellyfinServer));
         }
 
         private void Back_BackRequested(object sender, BackRequestedEventArgs e)
@@ -40,14 +54,6 @@ namespace Jellyfin.Controls
                 WView.GoBack();
             }
             e.Handled = true;
-        }
-
-        private void JellyfinWebView_Loaded(object sender, RoutedEventArgs e)
-        {
-            WView.ContainsFullScreenElementChanged += JellyfinWebView_ContainsFullScreenElementChanged;
-            WView.NavigationCompleted += JellyfinWebView_NavigationCompleted;
-
-            WView.Navigate(new Uri(Central.Settings.JellyfinServer));            
         }
 
         private async void JellyfinWebView_NavigationCompleted(Windows.UI.Xaml.Controls.WebView sender, WebViewNavigationCompletedEventArgs args)
