@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Jellyfin.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,8 +28,26 @@ namespace Jellyfin.Controls
 
             WView.ContainsFullScreenElementChanged += JellyfinWebView_ContainsFullScreenElementChanged;
             WView.NavigationCompleted += JellyfinWebView_NavigationCompleted;
+            WView.Navigate(new Uri(Central.Settings.JellyfinServer));
 
-            WView.Navigate(new Uri("https://demo.jellyfin.org/stable"));
+            SystemNavigationManager.GetForCurrentView().BackRequested += Back_BackRequested;
+        }
+
+        private void Back_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (WView.CanGoBack)
+            {
+                WView.GoBack();
+            }
+            e.Handled = true;
+        }
+
+        private void JellyfinWebView_Loaded(object sender, RoutedEventArgs e)
+        {
+            WView.ContainsFullScreenElementChanged += JellyfinWebView_ContainsFullScreenElementChanged;
+            WView.NavigationCompleted += JellyfinWebView_NavigationCompleted;
+
+            WView.Navigate(new Uri(Central.Settings.JellyfinServer));            
         }
 
         private async void JellyfinWebView_NavigationCompleted(Windows.UI.Xaml.Controls.WebView sender, WebViewNavigationCompletedEventArgs args)

@@ -8,6 +8,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,6 +32,9 @@ namespace Jellyfin
         public App()
         {
             this.InitializeComponent();
+
+            App.Current.RequiresPointerMode = Windows.UI.Xaml.ApplicationRequiresPointerMode.WhenRequested;
+
             this.Suspending += OnSuspending;
         }
 
@@ -56,6 +60,14 @@ namespace Jellyfin
                     ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
                     ApplicationViewScaling.TrySetDisableLayoutScaling(true);
                 }
+                else
+                {
+                    ApplicationViewTitleBar formattableTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    formattableTitleBar.ButtonBackgroundColor = Color.FromArgb(255, 32, 32, 32);
+                    formattableTitleBar.ButtonForegroundColor = Color.FromArgb(255, 160, 160, 160);
+                    formattableTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                    formattableTitleBar.BackgroundColor = Color.FromArgb(255, 32, 32, 32);
+                }
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -73,7 +85,7 @@ namespace Jellyfin
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(Views.OnBoarding), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
